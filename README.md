@@ -1,7 +1,7 @@
 # Kubernetes_project
 it is just a project with deployment of a wep application with database in kubernetes cluster. 
 
-the terminal of the kubernetes commands used: 
+the terminal of the kubectl commands used: 
 
 PS C:\Users\shrut> minikube start --driver docker
 * minikube v1.33.1 on Microsoft Windows 11 Home Single Language 10.0.22631.4037 Build 22631.4037
