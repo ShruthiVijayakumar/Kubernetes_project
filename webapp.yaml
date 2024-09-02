@@ -1,0 +1,52 @@
+#deployment and service in one file
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-deployment
+  labels:
+    app: webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp #same label for all replicas
+    spec:
+      containers:
+      - name: webapp
+        image: nanajanashia/k8s-demo-app:v1.0
+        ports:
+        - containerPort: 3000 #port for the free application
+        env:
+        - name: USER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: mongo-user
+        - name: USER_PWD
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: mongo-password
+        - name: DB_URL
+          valueFrom:
+            configMapKeyRef:
+              name: mongo-config
+              key: mongo-url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp-service
+spec:
+  type: NodePort #to make it accessible from browser - external service
+  selector:
+    app: webapp 
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+      nodePort: 30100 #range 30000 - 32767
