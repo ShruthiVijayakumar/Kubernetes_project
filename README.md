@@ -1,5 +1,5 @@
 # Kubernetes_project
-it is just a project with components of kubernetes deployed.
+it is just a project with deployment of a wep application with database in kubernetes cluster. 
 
 the terminal of the kubernetes commands used: 
 
